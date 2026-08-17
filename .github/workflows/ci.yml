@@ -43,7 +43,36 @@ jobs:
       - run: python -m pip install -e '.[dev]' build
       - run: ruff check .
       - run: ruff format --check .
-      - run: pytest -q
+      - run: pytest -q --ignore=tests/test_amazinghand_dependency.py
       - run: python -m so101_wrapper doctor --backend fake --profile arms_only
       - run: python -m so101_wrapper doctor --backend fake --profile arms_base
       - run: python -m build
+
+  amazinghand-contract:
+    name: Pinned AmazingHand public API
+    runs-on: ubuntu-latest
+    env:
+      AMAZINGHAND_COMMIT: 3f756af8787e6ee8b2c098a40bd4c60899b9e81c
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e '.[dev]'
+      - name: Install exact AmazingHand compatibility pin
+        run: >-
+          python -m pip install
+          "amazinghand-wrapper @ git+https://github.com/LV-Robotics-Lab/amazinghand_wrapper.git@${AMAZINGHAND_COMMIT}"
+      - name: Verify manifest pin and public-only adapter contract
+        run: |
+          python - <<'PY'
+          import os
+          from so101_wrapper import VALIDATED_AMAZINGHAND_COMMIT
+
+          assert VALIDATED_AMAZINGHAND_COMMIT == os.environ["AMAZINGHAND_COMMIT"]
+          PY
+          pytest -q tests/test_amazinghand_dependency.py

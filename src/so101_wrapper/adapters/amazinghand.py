@@ -15,10 +15,10 @@ class UnsupportedAmazingHandAPI(RuntimeError):
 class AmazingHandControllerAdapter:
     """Adapt an AmazingHand controller without reaching into ``controller.backend``.
 
-    The currently validated ``amazinghand_wrapper`` commit does not expose the
-    required goal-latching method. ``offline_validate_calibration`` detects that
-    gap before the serial port is opened. A future dependency revision can add
-    ``latch_current_position`` without changing this wrapper's lifecycle contract.
+    The validated ``amazinghand_wrapper`` commit exposes the required public
+    goal-latching method. ``offline_validate_calibration`` still checks the
+    capability before the serial port is opened so an old or mismatched checkout
+    fails closed instead of falling back to private backend access.
     """
 
     def __init__(self, controller: Any, config: AmazingHandAttachmentConfig) -> None:

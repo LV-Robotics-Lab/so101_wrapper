@@ -1,6 +1,7 @@
 """Public API for the LV Robotics Lab SO-101 hardware boundary."""
 
 from .config import (
+    VALIDATED_AMAZINGHAND_COMMIT,
     VALIDATED_XLEROBOT_COMMIT,
     AmazingHandAttachmentConfig,
     BiSO101AmazingFollowerConfig,
@@ -43,6 +44,7 @@ __all__ = [
     "SO101AmazingFollowerConfig",
     "SO101ArmBackend",
     "SourceVerificationError",
+    "VALIDATED_AMAZINGHAND_COMMIT",
     "VALIDATED_XLEROBOT_COMMIT",
     "XLeRobotSourceConfig",
     "XLerobotAmazingFollower",
