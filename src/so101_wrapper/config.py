@@ -15,6 +15,7 @@ from .schema import (
 )
 
 VALID_CALIBRATION_SCHEMA = "lv_robotics.amazinghand_calibration.v1"
+VALIDATED_AMAZINGHAND_COMMIT = "3f756af8787e6ee8b2c098a40bd4c60899b9e81c"
 VALIDATED_XLEROBOT_COMMIT = "3d14695e40c9c68229c0aacffca6053c75cd3eb6"
 
 

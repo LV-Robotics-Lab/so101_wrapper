@@ -79,12 +79,12 @@ The core uses injected protocols from `so101_wrapper.protocols`; tests use only
 offline validation, torque-off connect, position latching, activation, emergency
 stop, and disconnect.
 
-The AmazingHand adapter intentionally refuses current
-`LV-Robotics-Lab/amazinghand_wrapper@c4e7045` before opening its port because that
-revision has no public `latch_current_position()` method. The former LeRobot
-integration reached through `controller.backend` to write goals. This repository
-does not cross that ownership boundary. Update the hand wrapper with the public
-operation, pin that new commit, and then clear this live gate.
+The validated dependency
+`LV-Robotics-Lab/amazinghand_wrapper@3f756af8787e6ee8b2c098a40bd4c60899b9e81c`
+provides public controller and backend `latch_current_position()` operations.
+The former LeRobot integration reached through `controller.backend` to write
+goals; this repository does not cross that ownership boundary. Offline preflight
+still rejects any older or mismatched dependency before opening a port.
 
 The XLeRobot loader likewise accepts no guessed relative path. It requires an
 explicit checkout root and full Git SHA, verifies `git rev-parse HEAD`, and loads
@@ -126,7 +126,7 @@ Before collection or inference on the exact rig, complete and record:
 
 - persistent udev paths for both body buses, both hands, leaders, and cameras;
 - pair-specific body/hand calibration provenance and device-side identity;
-- the new public AmazingHand goal-latch API and its torque-off ordering test;
+- the public AmazingHand goal-latch API pin and its torque-off ordering test;
 - read-only device probes, low-speed bounded motion, and base zeroing;
 - camera frame/geometry checks, physical emergency-stop rehearsal, and soak test;
 - one 12D collection/replay test and, separately, one guarded 15D base test.

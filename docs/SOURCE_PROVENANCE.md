@@ -56,17 +56,17 @@ Not migrated:
 - XLeRobot validated source:
   `Vector-Wangel/XLeRobot@3d14695e40c9c68229c0aacffca6053c75cd3eb6`
 - AmazingHand validated source:
-  `LV-Robotics-Lab/amazinghand_wrapper@c4e704503038273a8935a9ad76ba7ad78165a44e`
+  `LV-Robotics-Lab/amazinghand_wrapper@3f756af8787e6ee8b2c098a40bd4c60899b9e81c`
 
 Prometheus must pin XLeRobot, this repository, and AmazingHand directly. This
 repository records validated identities but deliberately does not make either
 dependency a nested submodule.
 
-## Public API gap carried as a gate
+## Public API boundary
 
 The historical integration latched AmazingHand goals using private
 `hand.backend.read_positions()` and `hand.backend.write_positions()` calls. The
-validated AmazingHand revision has no public equivalent. The new adapter requires
-`latch_current_position()` during offline preflight and refuses to open hardware
-when it is absent. This is an explicit follow-up in the owning dependency, not a
-private-API workaround in this wrapper.
+validated AmazingHand revision now owns an equivalent public
+`latch_current_position()` operation on both its controller and backend protocol.
+The adapter requires that capability during offline preflight and refuses to open
+hardware when it is absent; it never falls back to private `.backend` access.
