@@ -1,0 +1,17 @@
+so101_wrapper
+Copyright 2026 LV Robotics Lab
+
+This product reimplements and adapts behavior from:
+
+- LeRobot, Copyright 2024 The Hugging Face team, Apache License 2.0
+  https://github.com/huggingface/lerobot
+- LV Robotics Lab LeRobot fork, Apache License 2.0
+  https://github.com/LV-Robotics-Lab/lerobot
+- XLeRobot, Apache License 2.0
+  https://github.com/Vector-Wangel/XLeRobot
+- amazinghand_wrapper, Apache License 2.0
+  https://github.com/LV-Robotics-Lab/amazinghand_wrapper
+
+No upstream source tree, calibration payload, local robot data, or vendor SDK is
+vendored in this repository. Exact commit and path provenance is documented in
+docs/SOURCE_PROVENANCE.md.
